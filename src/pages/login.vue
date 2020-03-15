@@ -22,6 +22,10 @@
     ></hminput>
 
     <hmbutton @chufafuji="login">登录</hmbutton>
+    <div class="go-register">
+      没有账号去
+      <router-link class="link" to="/register">注册</router-link>
+    </div>
   </div>
 </template>
 
@@ -68,8 +72,19 @@ export default {
       username: '',
       password: ''
     }
+  },
+  created() {
+    console.log(this.$route)
+    this.username = this.$route.params.username
+    this.password = this.$route.params.password
   }
 }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.go-register {
+  padding: 0 20px;
+  font-size: 18px;
+  text-align: right;
+}
+</style>
