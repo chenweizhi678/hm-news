@@ -1,31 +1,37 @@
 //  配置路由信息
 
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 // 导入组件
-import login from "../pages/login.vue";
-import register from "../pages/register.vue";
+import login from '../pages/login.vue'
+import register from '../pages/register.vue'
+import user from '../pages/user.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
     {
-      path: "/",
-      redirect: "/login"
+      path: '/',
+      redirect: '/login'
     },
 
     {
-      path: "/login",
+      path: '/login',
       component: login
     },
 
     {
-      path: "/register",
+      path: '/register',
       component: register
+    },
+
+    {
+      path: '/user',
+      component: user
     }
   ]
-});
+})
 
-export default router;
+export default router

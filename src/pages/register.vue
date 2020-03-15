@@ -1,26 +1,19 @@
 <template>
   <div class="register">
-    <hmheader> 注册</hmheader>
+    <hmheader>注册</hmheader>
     <hmlogo></hmlogo>
-
-    <div class="username">
-      <input type="text" placeholder="请输入手机号" />
-    </div>
-
-    <div class="password">
-      <input type="text" placeholder="请输入昵称" />
-    </div>
-
-    <div class="password">
-      <input type="text" placeholder="请输入密码" />
-    </div>
-
-    <hmbutton> 注册</hmbutton>
+    <van-button type="primary">主要按钮</van-button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    register() {
+      console.log('注册')
+    }
+  }
+}
 </script>
 
 <style></style>
