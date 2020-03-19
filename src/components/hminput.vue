@@ -58,7 +58,7 @@ export default {
           this.status = 'error'
           return false
         }
-        console.log(this.status)
+        // console.log(this.status)
       }
     }
   }

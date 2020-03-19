@@ -7,6 +7,8 @@ import VueRouter from 'vue-router'
 import login from '../pages/login.vue'
 import register from '../pages/register.vue'
 import user from '../pages/user.vue'
+import edit from '../pages/edit.vue'
+import test from '../pages/test.vue'
 
 Vue.use(VueRouter)
 
@@ -33,8 +35,40 @@ const router = new VueRouter({
       path: '/user',
       component: user,
       name: 'user'
+    },
+    {
+      path: '/edit',
+      component: edit,
+      name: 'edit'
+    },
+    {
+      path: '/test',
+      component: test,
+      name: 'test'
     }
   ]
 })
 
+//   注册全局的导航守卫
+// 只要路由发生了跳转,先经过导航守卫
+router.beforeEach(function(to, from, next) {
+  // to 跳拿去
+  // from 从哪来
+  // next函数 去指定 或者放
+
+  //  方便后续维护 先定义一个数组
+  // 需要授权的路径 需要登录后才能访问的路径
+  const authurl = ['/user', '/edit']
+  const token = localStorage.getItem('token')
+  if (authurl.includes(to.path)) {
+    if (token) {
+      next()
+    } else {
+      next('./login')
+    }
+  } else {
+    // 去别的地点
+    next()
+  }
+})
 export default router
