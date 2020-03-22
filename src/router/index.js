@@ -9,6 +9,9 @@ import register from '../pages/register.vue'
 import user from '../pages/user.vue'
 import edit from '../pages/edit.vue'
 import test from '../pages/test.vue'
+import follow from '../pages/follow.vue'
+import comments from '../pages/comments.vue'
+import star from '../pages/star.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +48,21 @@ const router = new VueRouter({
       path: '/test',
       component: test,
       name: 'test'
+    },
+    {
+      path: '/follow',
+      component: follow,
+      name: 'follow'
+    },
+    {
+      path: '/comments',
+      component: comments,
+      name: 'comments'
+    },
+    {
+      path: '/star',
+      component: star,
+      name: 'star'
     }
   ]
 })
@@ -58,7 +76,7 @@ router.beforeEach(function(to, from, next) {
 
   //  方便后续维护 先定义一个数组
   // 需要授权的路径 需要登录后才能访问的路径
-  const authurl = ['/user', '/edit']
+  const authurl = ['/user', '/edit', '/follow', '/comments', '/star']
   const token = localStorage.getItem('token')
   if (authurl.includes(to.path)) {
     if (token) {

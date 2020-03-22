@@ -51,7 +51,8 @@ import {
   RadioGroup,
   Cell,
   CellGroup,
-  Uploader
+  Uploader,
+  List
 } from 'vant'
 Vue.use(Button)
 Vue.use(Field)
@@ -62,15 +63,16 @@ Vue.use(RadioGroup)
 Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Uploader)
+Vue.use(List)
 
 axios.defaults.baseURL = 'http://localhost:3000'
 // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！请求拦截 就是所有的请求都先要经过它
 axios.interceptors.request.use(function(config) {
-  console.log('拦截前的信息', config)
+  // console.log('拦截前的信息', config)
 
   const token = localStorage.getItem('token')
   config.headers.Authorization = token
-  console.log('拦截后', config)
+  // console.log('拦截后', config)
   return config
 })
 
@@ -96,8 +98,8 @@ Vue.prototype.$axios = axios
 // 全局过滤器
 import moment from 'moment'
 
-Vue.filter('date', function(input) {
-  return moment(input).format('YYYY-MM-DD')
+Vue.filter('date', function(input, format = 'YYYY-MM-DD') {
+  return moment(input).format(format)
 })
 
 Vue.config.productionTip = false

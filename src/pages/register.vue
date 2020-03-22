@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    register() {
+    async register() {
       // 进下表单校验
 
       const res1 = this.$refs.username.validate(this.username)
@@ -59,7 +59,7 @@ export default {
       }
       // 只有全ture才发请求
       console.log('发请求')
-      this.$axios({
+      const res = await this.$axios({
         method: 'post',
         url: '/register',
         data: {
@@ -67,21 +67,21 @@ export default {
           password: this.password,
           nickname: this.nickname
         }
-      }).then(res => {
-        console.log(res.data)
-
-        if (res.data.statusCode === 200) {
-          // 显示提示的登录框
-          this.$toast.success(res.data.message)
-          // 登录成功跳转到首页,
-          this.$router.push({
-            name: 'login',
-            params: { username: this.username, password: this.password }
-          })
-        } else {
-          this.$toast.fail(res.data.message)
-        }
       })
+
+      console.log(res.data)
+
+      if (res.data.statusCode === 200) {
+        // 显示提示的登录框
+        this.$toast.success(res.data.message)
+        // 登录成功跳转到首页,
+        this.$router.push({
+          name: 'login',
+          params: { username: this.username, password: this.password }
+        })
+      } else {
+        this.$toast.fail(res.data.message)
+      }
     }
   }
 }

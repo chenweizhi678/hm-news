@@ -26,12 +26,10 @@ export default {
   methods:{
     crop(){
       // 获取裁剪图片的信息 传图片就是传这个blob文件，这个文件传到服务器，再该头像
-      
       this.$refs.cropper.getCropBlob((data) => {
      // do something
      console.log(data)  
-})
-
+     })
 
     }
 

@@ -24,9 +24,9 @@
       </div>
     </div>
 
-    <hmnavbar1 title="我的关注" content="关注的用户"></hmnavbar1>
-    <hmnavbar1 title="我的跟帖" content="回复"></hmnavbar1>
-    <hmnavbar1 title="我的收藏" content="文章"></hmnavbar1>
+    <hmnavbar1 title="我的关注" content="关注的用户" @click="$router.push('/follow')"></hmnavbar1>
+    <hmnavbar1 title="我的跟帖" @click="$router.push('/comments')" content="回复"></hmnavbar1>
+    <hmnavbar1 title="我的收藏" @click="$router.push('/star')" content="文章"></hmnavbar1>
     <hmnavbar1 title="设置" @click="$router.push('/edit')"></hmnavbar1>
     <hmnavbar1 title="退出" @click="logout"></hmnavbar1>
   </div>
@@ -42,47 +42,47 @@ export default {
   },
   // 父传子
   methods: {
-    logout() {
+    async logout() {
       // console.log('退出')
-      this.$dialog
-        .confirm({
+      try {
+        const res = await this.$dialog.confirm({
           title: '温馨提示',
           message: '你确定要退出本系统吗'
         })
-        .then(() => {
-          localStorage.removeItem('token')
-          localStorage.removeItem('user_id')
-          this.$router.push('/login')
-          this.$toast.success('推出成功')
-        })
-        .catch(() => {
-          // console.log('取消退出')
-          this.$toast('取消退出')
-        })
+
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
+        this.$router.push('/login')
+        this.$toast.success('推出成功')
+      } catch {
+        // 点击取消
+        this.$toast('quxiao')
+      }
     }
   },
   // 到了这个页面需要发请求获取数据
-  created() {
+  async created() {
     // 请求获取数据
     //在发送请求的时候，携带token
     // token需要通过一个请求头才可以
     const user_id = localStorage.getItem('user_id')
     const token = localStorage.getItem('token')
-    this.$axios({
+
+    const res = await this.$axios({
       method: 'get',
       url: `/user/${user_id}`,
       headers: {
         Authorization: token
       }
-    }).then(res => {
-      // console.log(res)
-      // 结构状态码
-      const { statusCode, data } = res.data
-      if (statusCode === 200) {
-        this.info = data
-        // console.log(this.info)
-      }
     })
+
+    // console.log(res)
+    // 结构状态码
+    const { statusCode, data } = res.data
+    if (statusCode === 200) {
+      this.info = data
+      // console.log(this.info)
+    }
   }
 }
 </script>

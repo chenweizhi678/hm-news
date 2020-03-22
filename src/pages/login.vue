@@ -32,7 +32,7 @@
 <script>
 export default {
   methods: {
-    login() {
+    async login() {
       // console.log('登录')
       // console.log(axios)
 
@@ -47,30 +47,29 @@ export default {
         return
       }
 
-      this.$axios({
+      const res = await this.$axios({
         method: 'post',
         url: '/login',
         data: {
           username: this.username,
           password: this.password
         }
-      }).then(res => {
-        console.log(res.data)
-        // 解构
-        const { statusCode, data, message } = res.data
-        if (statusCode === 200) {
-          this.$toast.success('成功')
-          // 如果登录成功了，需要跳转到个人中心
-          // console.log('aa')
-          // 把登录的信息存起来
-          localStorage.setItem('token', data.token)
-          localStorage.setItem('user_id', data.user.id)
-
-          this.$router.push('/user')
-        } else {
-          this.$toast.fail(message)
-        }
       })
+
+      // 解构
+      const { statusCode, data, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success('成功')
+        // 如果登录成功了，需要跳转到个人中心
+        // console.log('aa')
+        // 把登录的信息存起来
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('user_id', data.user.id)
+
+        this.$router.push('/user')
+      } else {
+        this.$toast.fail(message)
+      }
     }
   },
 
